@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "pb-biome-api",
+  "version": "${version}",
+
+  "name": "Biome API",
+  "description": "Experimental Biome API for Minecraft 1.18+",
+  "authors": [
+    "Patbox"
+  ],
+  "contact": {
+    "homepage": "https://pb4.eu",
+    "sources": "https://github.com/Patbox/biome-api"
+  },
+
+  "license": "LGPLv3",
+  "icon": "assets/pb_biome_api/icon.png",
+
+  "environment": "*",
+  "accessWidener": "pb_biome_api.accesswidener",
+  "mixins": [
+    "pbbiomeapi.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  }
+}

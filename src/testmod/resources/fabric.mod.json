@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "biome-api-testmod",
+  "version": "${version}",
+
+  "name": "Biome API TestMod",
+  "description": "",
+  "authors": [
+    "Patbox"
+  ],
+
+  "license": "CC0-1.0",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "eu.pb4.biomeapi.testmod.ModInitializer"
+    ],
+    "pb_biome_api:material_rules": [
+      "eu.pb4.biomeapi.testmod.ModInitializer"
+    ]
+  }
+}

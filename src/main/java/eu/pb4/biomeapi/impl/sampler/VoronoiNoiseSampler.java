@@ -48,11 +48,13 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
     private final long seed;
 
     private final int maxValue;
+    private final int[] idMap;
 
-    public VoronoiNoiseSampler(long seed, float frequency, int maxValue) {
+    public VoronoiNoiseSampler(long seed, float frequency, int maxValue, int[] weights) {
         this.seed = seed;
         this.frequency = frequency;
         this.maxValue = maxValue;
+        this.idMap = weights;
     }
 
     private static long hash(long seed, int xPrimed, int yPrimed) {
@@ -130,7 +132,7 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
 
     @Override
     public double sample(double x, double y, double z) {
-        return (long) sampleBase(x, z);
+        return this.idMap[(int) sampleBase(x, z)];
     }
 
     @Override

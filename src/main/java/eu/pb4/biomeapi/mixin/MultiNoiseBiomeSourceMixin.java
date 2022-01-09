@@ -39,7 +39,13 @@ public abstract class MultiNoiseBiomeSourceMixin implements ExtendedMultiNoiseBi
     @Inject(method = "addDebugInfo", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void biomeApi_catchSeed(List<String> info, BlockPos pos, MultiNoiseUtil.MultiNoiseSampler noiseSampler, CallbackInfo ci, int x, int y, int z, MultiNoiseUtil.NoiseValuePoint noiseValuePoint) {
         if (noiseSampler instanceof ExtendedColumnSampler ex) {
-            info.add("[Biome API] Mod Noise: " + MultiNoiseUtil.method_38666(((ExtendedNoiseValue) (Object) noiseValuePoint).biomeApi_getModNoise()) + " | " + ex.biomeApi_getSampler().sampleUnfiltered(x, y, z));
+            var id = (int) MultiNoiseUtil.method_38666(((ExtendedNoiseValue) (Object) noiseValuePoint).biomeApi_getModNoise());
+            info.add("[Biome API] Mod Noise: "
+                    + id
+                    + " ("
+                    + (this.biomeApi_worldInfo != null ? this.biomeApi_worldInfo.getById(id) : "<none>")
+                    + ") | "
+                    + ex.biomeApi_getSampler().sampleUnfiltered(x, y, z));
         }
     }
 

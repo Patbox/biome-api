@@ -7,11 +7,11 @@ import java.util.function.Consumer;
 public final class BiomeParameters {
     private BiomeParameters() {}
 
-    public static void registerOverworld(String namespace, Consumer<BiomeNoiseBuilder> callback) {
-        WorldInfoImpl.OVERWORLD.registerNoise(namespace, callback);
+    public static void registerOverworld(String regionId, int weight, Consumer<BiomeNoiseBuilder> callback) {
+        WorldInfoImpl.OVERWORLD.registerNoise(regionId, weight, callback);
     }
 
-    public static void registerNether(String namespace, Consumer<BiomeNoiseBuilder> callback) {
-        WorldInfoImpl.NETHER.registerNoise(namespace, callback);
+    public static void registerNether(String regionId, int weight, Consumer<BiomeNoiseBuilder> callback) {
+        WorldInfoImpl.NETHER.registerNoise(regionId, weight, callback);
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.OverworldBiomeCreator;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class ModInitializer implements net.fabricmc.api.ModInitializer, MaterialRulesInitializer {
@@ -23,7 +24,7 @@ public class ModInitializer implements net.fabricmc.api.ModInitializer, Material
 
 
         // Adds custom biome, fill rest with vanilla
-        BiomeParameters.registerOverworld("testmod", (builder) -> {
+        BiomeParameters.registerOverworld("testmod:vanila_filled", 2, (builder) -> {
             builder.addSimilar(BiomeKeys.OCEAN, key);
 
             builder.addSimilar(BiomeKeys.FOREST, key);
@@ -44,8 +45,17 @@ public class ModInitializer implements net.fabricmc.api.ModInitializer, Material
         });
 
         // Entire region uses custom biome
-        BiomeParameters.registerOverworld("testmod2", (builder) -> {
+        BiomeParameters.registerOverworld("testmod:single_biome", 1, (builder) -> {
             builder.addBiome(0.0f, 0f, 0.0f, 0f, 0f, 0.0f, key2);
+        });
+
+        // Entire region uses custom biome
+        BiomeParameters.registerOverworld("testmod:multi_biome", 3, (builder) -> {
+            builder.addBiome(0.0f, 0f, 0.0f, 0f, 0f, 0.0f, BiomeKeys.NETHER_WASTES);
+            builder.addBiome(0.0F, -0.5F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, BiomeKeys.SOUL_SAND_VALLEY);
+            builder.addBiome(0.4F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, BiomeKeys.CRIMSON_FOREST);
+            builder.addBiome(0.0F, 0.5F, 0.0F, 0.0F, 0.0F, 0.0F, 0.375F, BiomeKeys.WARPED_FOREST);
+            builder.addBiome(-0.5F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.175F, BiomeKeys.BASALT_DELTAS);
         });
 
         Registry.register(BuiltinRegistries.BIOME, key, OverworldBiomeCreator.createTheVoid());

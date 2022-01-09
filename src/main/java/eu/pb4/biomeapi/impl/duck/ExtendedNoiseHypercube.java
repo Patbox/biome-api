@@ -1,7 +1,9 @@
 package eu.pb4.biomeapi.impl.duck;
 
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public interface ExtendedNoiseHypercube {
     MultiNoiseUtil.ParameterRange DEFAULT_RANGE = new MultiNoiseUtil.ParameterRange(0, 0);
 

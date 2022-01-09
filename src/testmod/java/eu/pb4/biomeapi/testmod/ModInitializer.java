@@ -11,7 +11,10 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.OverworldBiomeCreator;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.biome.source.MultiNoiseBiomeSource;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
+import net.minecraft.world.gen.surfacebuilder.VanillaSurfaceRules;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -87,6 +90,12 @@ public class ModInitializer implements net.fabricmc.api.ModInitializer, Material
                                         MaterialRules.block(Blocks.CYAN_WOOL.getDefaultState())
                                 )
                         )
+                )
+        );
+
+        consumer.accept(MaterialRules.condition(
+                MaterialRules.biome(BiomeKeys.NETHER_WASTES, BiomeKeys.SOUL_SAND_VALLEY, BiomeKeys.CRIMSON_FOREST, BiomeKeys.WARPED_FOREST, BiomeKeys.BASALT_DELTAS),
+                VanillaSurfaceRules.createNetherSurfaceRule()
                 )
         );
     }

@@ -1,9 +1,12 @@
 package eu.pb4.biomeapi.impl.sampler;
 
 
+import org.jetbrains.annotations.ApiStatus;
+
 /**
  * Based on implementation of cell noise from FastNoiseLite library
  */
+@ApiStatus.Internal
 public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
     private static final double[] RANDOM_VECTORS = {
             -0.2700222198f, -0.9628540911f, 0.3863092627f, -0.9223693152f, 0.04444859006f, -0.999011673f, -0.5992523158f, -0.8005602176f, -0.7819280288f, 0.6233687174f, 0.9464672271f, 0.3227999196f, -0.6514146797f, -0.7587218957f, 0.9378472289f, 0.347048376f,
@@ -57,7 +60,7 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
         this.idMap = weights;
     }
 
-    private static long hash(long seed, int xPrimed, int yPrimed) {
+    private static int hash(long seed, int xPrimed, int yPrimed) {
         long hash = seed ^ xPrimed ^ yPrimed;
 
         hash *= 0x27d4eb2d;
@@ -73,7 +76,7 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
 
         double distance0 = Double.MAX_VALUE;
         double distance1 = Double.MAX_VALUE;
-        long closestHash = 0;
+        int closestHash = 0;
 
         double cellularJitter = 0.43701595f;
 
@@ -85,8 +88,8 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
             int yPrimed = yPrimedBase;
 
             for (int yi = yr - 1; yi <= yr + 1; yi++) {
-                long hash = hash(seed, xPrimed, yPrimed);
-                int idx = (int) (hash & (255 << 1));
+                int hash = hash(seed, xPrimed, yPrimed);
+                int idx = (hash & (255 << 1));
 
                 double vecX = (xi - x) + RANDOM_VECTORS[idx] * cellularJitter;
                 double vecY = (yi - y) + RANDOM_VECTORS[idx | 1] * cellularJitter;

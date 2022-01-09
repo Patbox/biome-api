@@ -13,10 +13,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.biome.source.util.VanillaBiomeParameters;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.*;
 import java.util.function.Consumer;
 
+@ApiStatus.Internal
 public final class WorldInfoImpl {
     public static final int NOISE_COUNT = 8;
     public static final float FREQUENCY = 0.01f;

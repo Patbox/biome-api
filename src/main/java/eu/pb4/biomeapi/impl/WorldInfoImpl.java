@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 
 @ApiStatus.Internal
 public final class WorldInfoImpl {
-    public static final int NOISE_COUNT = 8;
-    public static final float FREQUENCY = 0.01f;
+    public static final int NOISE_COUNT = 9;
+    public static final float FREQUENCY = 0.008f;
 
     public static final WorldInfoImpl OVERWORLD = new WorldInfoImpl();
     public static final WorldInfoImpl NETHER = new WorldInfoImpl();

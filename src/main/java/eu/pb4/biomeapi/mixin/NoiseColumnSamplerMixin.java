@@ -23,16 +23,17 @@ public class NoiseColumnSamplerMixin implements ExtendedColumnSampler {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void patboxBiomes_init(GenerationShapeConfig config, boolean hasNoiseCaves, long seed, Registry noiseRegistry, ChunkRandom.RandomProvider randomProvider, CallbackInfo ci) {
-        this.biomeApi_modNoise = (x, y, z) -> 0;
+        this.biomeApi_modNoise = ModdedNoiseSampler.noop();
     }
 
     @Inject(method = "method_39329", at = @At("RETURN"), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
     private void patboxBiomes_addNoise(int i, int j, int k, NoiseColumnSampler.class_6747 arg, CallbackInfoReturnable<MultiNoiseUtil.NoiseValuePoint> cir, double x, double y, double z) {
-        cir.setReturnValue(((ExtendedNoiseValue) (Object) cir.getReturnValue()).biomeApi_setModNoise((long) (this.biomeApi_sampleModNoise(x, y, z) * 10000)));
+        var modNoise = this.biomeApi_sampleModNoise(x, y, z);
+        cir.setReturnValue(((ExtendedNoiseValue) (Object) cir.getReturnValue()).biomeApi_setModNoise((long) (modNoise[0] * 10000), (long) (modNoise[1] * 10000)));
     }
 
     @Override
-    public double biomeApi_sampleModNoise(double x, double y, double z) {
+    public double[] biomeApi_sampleModNoise(double x, double y, double z) {
         return this.biomeApi_modNoise.sample(x, y, z);
     }
 

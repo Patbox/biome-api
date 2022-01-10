@@ -5,6 +5,7 @@ import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 public interface ExtendedNoiseValue {
-    long biomeApi_getModNoise();
-    MultiNoiseUtil.NoiseValuePoint biomeApi_setModNoise(long modNoise);
+    long biomeApi_getModRegion();
+    long biomeApi_getRegionSide();
+    MultiNoiseUtil.NoiseValuePoint biomeApi_setModNoise(long modRegion, long regionSide);
 }

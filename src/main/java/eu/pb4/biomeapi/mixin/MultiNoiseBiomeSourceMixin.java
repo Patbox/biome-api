@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,13 +40,19 @@ public abstract class MultiNoiseBiomeSourceMixin implements ExtendedMultiNoiseBi
     @Inject(method = "addDebugInfo", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void biomeApi_catchSeed(List<String> info, BlockPos pos, MultiNoiseUtil.MultiNoiseSampler noiseSampler, CallbackInfo ci, int x, int y, int z, MultiNoiseUtil.NoiseValuePoint noiseValuePoint) {
         if (noiseSampler instanceof ExtendedColumnSampler ex) {
-            var id = (int) MultiNoiseUtil.method_38666(((ExtendedNoiseValue) (Object) noiseValuePoint).biomeApi_getModNoise());
-            info.add("[Biome API] Mod Noise: "
-                    + id
-                    + " ("
+            var decimalFormat = new DecimalFormat("##0.000");
+
+            var id = (int) MultiNoiseUtil.method_38666(((ExtendedNoiseValue) (Object) noiseValuePoint).biomeApi_getModRegion());
+            var side = MultiNoiseUtil.method_38666(((ExtendedNoiseValue) (Object) noiseValuePoint).biomeApi_getRegionSide());
+            info.add("[Biome API] Reg: "
                     + (this.biomeApi_worldInfo != null ? this.biomeApi_worldInfo.getById(id) : "<none>")
-                    + ") | "
-                    + ex.biomeApi_getSampler().sampleUnfiltered(x, y, z));
+                    + " ("
+                    + id
+                    + ") | N: "
+                    + decimalFormat.format(ex.biomeApi_getSampler().sampleUnfiltered(x, y, z)[0])
+                    + " | RS: "
+                    + decimalFormat.format(side)
+            );
         }
     }
 

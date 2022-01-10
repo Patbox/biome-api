@@ -67,7 +67,7 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
         return (int) hash;
     }
 
-    private double sampleRaw(double x, double y) {
+    private double[] sampleRaw(double x, double y) {
         x *= this.frequency;
         y *= this.frequency;
 
@@ -106,40 +106,24 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
             xPrimed += PRIME_X;
         }
 
-        /*
-        switch (mCellularReturnType) {
-            case CellValue:
-                return closestHash * (1 / 2147483648.0f);
-            case Distance:
-                return distance0 - 1;
-            case Distance2:
-                return distance1 - 1;
-            case Distance2Add:
-                return (distance1 + distance0) * 0.5f - 1;
-            case Distance2Sub:
-                return distance1 - distance0 - 1;
-            case Distance2Mul:
-                return distance1 * distance0 * 0.5f - 1;
-            case Distance2Div:
-                return distance0 / distance1 - 1;
-            default:
-                return 0;
-        }*/
-
-        return closestHash * (1 / 2147483648.0d);
+        return new double[] { closestHash * (1 / 2147483648.0d), distance0 + 1 - distance1 };
     }
 
-    private double sampleBase(double x, double z) {
-        return ((this.sampleRaw(x, z) + 1) / 2 * this.maxValue);
+    private double[] sampleBase(double x, double z) {
+        var raw = this.sampleRaw(x, z);
+        raw[0] = (raw[0] + 1) / 2 * this.maxValue;
+        return raw;
     }
 
     @Override
-    public double sample(double x, double y, double z) {
-        return this.idMap[(int) sampleBase(x, z)];
+    public double[] sample(double x, double y, double z) {
+        var raw = this.sampleRaw(x, z);
+        raw[0] = this.idMap[(int) ((raw[0] + 1) / 2 * this.maxValue)];
+        return raw;
     }
 
     @Override
-    public double sampleUnfiltered(double x, double y, double z) {
+    public double[] sampleUnfiltered(double x, double y, double z) {
         return sampleBase(x, z);
     }
 }

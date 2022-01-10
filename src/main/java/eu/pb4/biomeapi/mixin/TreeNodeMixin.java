@@ -34,7 +34,8 @@ public class TreeNodeMixin {
                     + MathHelper.square(this.parameters[3].getDistance(otherParameters[3]))
                     + MathHelper.square(this.parameters[4].getDistance(otherParameters[4]))
                     + MathHelper.square(this.parameters[5].getDistance(otherParameters[5]))
-                    + MathHelper.square(this.parameters[6].getDistance(otherParameters[6]));
+                    + MathHelper.square(this.parameters[6].getDistance(otherParameters[6]))
+                    + MathHelper.square(this.parameters[8].getDistance(otherParameters[8]));
         }
 
         return Long.MAX_VALUE - 1;

@@ -14,16 +14,23 @@ public class NoiseValuePointMixin implements ExtendedNoiseValue {
     @Shadow @Final private long depth;
     @Shadow @Final private long weirdnessNoise;
     @Unique
-    private long biomeApi_modNoise;
-
+    private long biomeApi_modRegion;
+    @Unique
+    private long biomeApi_regionSide;
     @Override
-    public long biomeApi_getModNoise() {
-        return this.biomeApi_modNoise;
+    public long biomeApi_getModRegion() {
+        return this.biomeApi_modRegion;
     }
 
     @Override
-    public MultiNoiseUtil.NoiseValuePoint biomeApi_setModNoise(long modNoise) {
-        this.biomeApi_modNoise = modNoise;
+    public long biomeApi_getRegionSide() {
+        return this.biomeApi_regionSide;
+    }
+
+    @Override
+    public MultiNoiseUtil.NoiseValuePoint biomeApi_setModNoise(long modRegion, long regionSide) {
+        this.biomeApi_modRegion = modRegion;
+        this.biomeApi_regionSide = regionSide;
         return (MultiNoiseUtil.NoiseValuePoint) (Object) this;
     }
 
@@ -33,6 +40,6 @@ public class NoiseValuePointMixin implements ExtendedNoiseValue {
      */
     @Overwrite
     public long[] getNoiseValueList() {
-        return new long[]{this.temperatureNoise, this.humidityNoise, this.continentalnessNoise, this.erosionNoise, this.depth, this.weirdnessNoise, 0L, this.biomeApi_modNoise};
+        return new long[]{this.temperatureNoise, this.humidityNoise, this.continentalnessNoise, this.erosionNoise, this.depth, this.weirdnessNoise, 0L, this.biomeApi_modRegion, this.biomeApi_regionSide};
     }
 }

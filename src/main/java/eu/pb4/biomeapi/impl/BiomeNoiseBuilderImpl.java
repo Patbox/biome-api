@@ -23,19 +23,19 @@ public class BiomeNoiseBuilderImpl implements BiomeNoiseBuilder {
     }
 
     @Override
-    public void addBiome(MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange depth, MultiNoiseUtil.ParameterRange weirdness, float offset, RegistryKey<Biome> biome) {
+    public void addBiome(MultiNoiseUtil.ParameterRange temperature, MultiNoiseUtil.ParameterRange humidity, MultiNoiseUtil.ParameterRange continentalness, MultiNoiseUtil.ParameterRange erosion, MultiNoiseUtil.ParameterRange depth, MultiNoiseUtil.ParameterRange weirdness, MultiNoiseUtil.ParameterRange regionSide, float offset, RegistryKey<Biome> biome) {
         this.parameters.accept(Pair.of(
                 ((ExtendedNoiseHypercube) (Object) MultiNoiseUtil.createNoiseHypercube(temperature, humidity, continentalness, erosion, depth, weirdness, offset))
-                        .biomeApi_setModRange(MultiNoiseUtil.ParameterRange.of(this.offset)),
+                        .biomeApi_setModRange(MultiNoiseUtil.ParameterRange.of(this.offset), MultiNoiseUtil.ParameterRange.of(this.offset)),
                 biome
         ));
     }
 
     @Override
-    public void addBiome(float temperature, float humidity, float continentalness, float erosion, float depth, float weirdness, float offset, RegistryKey<Biome> biome) {
+    public void addBiome(float temperature, float humidity, float continentalness, float erosion, float depth, float weirdness, float regionSide, float offset, RegistryKey<Biome> biome) {
         this.parameters.accept(Pair.of(
                 ((ExtendedNoiseHypercube) (Object) MultiNoiseUtil.createNoiseHypercube(temperature, humidity, continentalness, erosion, depth, weirdness, offset))
-                        .biomeApi_setModRange(MultiNoiseUtil.ParameterRange.of(this.offset)),
+                        .biomeApi_setModRange(MultiNoiseUtil.ParameterRange.of(this.offset), MultiNoiseUtil.ParameterRange.of(regionSide)),
                 biome
         ));
     }

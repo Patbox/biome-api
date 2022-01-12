@@ -24,7 +24,7 @@ public abstract class NoiseChunkGeneratorMixin {
     @Inject(method = "<init>(Lnet/minecraft/util/registry/Registry;Lnet/minecraft/world/biome/source/BiomeSource;Lnet/minecraft/world/biome/source/BiomeSource;JLjava/util/function/Supplier;)V", at = @At("TAIL"))
     private void biomeApi_setType(Registry noiseRegistry, BiomeSource populationSource, BiomeSource biomeSource, long seed, Supplier settings, CallbackInfo ci) {
         if (biomeSource instanceof ExtendedMultiNoiseBiomeSource source && source.biomeApi_getType() != null) {
-            ((ExtendedColumnSampler) this.noiseColumnSampler).biomeApi_setSampler(new VoronoiNoiseSampler(seed, WorldInfoImpl.FREQUENCY, source.biomeApi_getType().getBound(), source.biomeApi_getType().getWeights()));
+            ((ExtendedColumnSampler) this.noiseColumnSampler).biomeApi_setSampler(new VoronoiNoiseSampler(seed, WorldInfoImpl.FREQUENCY, source.biomeApi_getType().getWeights()));
         }
     }
 }

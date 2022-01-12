@@ -8,7 +8,7 @@ import org.jetbrains.annotations.ApiStatus;
  */
 @ApiStatus.Internal
 public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
-    private static final double[] RANDOM_VECTORS = {
+    private static final float[] RANDOM_VECTORS = {
             -0.2700222198f, -0.9628540911f, 0.3863092627f, -0.9223693152f, 0.04444859006f, -0.999011673f, -0.5992523158f, -0.8005602176f, -0.7819280288f, 0.6233687174f, 0.9464672271f, 0.3227999196f, -0.6514146797f, -0.7587218957f, 0.9378472289f, 0.347048376f,
             -0.8497875957f, -0.5271252623f, -0.879042592f, 0.4767432447f, -0.892300288f, -0.4514423508f, -0.379844434f, -0.9250503802f, -0.9951650832f, 0.0982163789f, 0.7724397808f, -0.6350880136f, 0.7573283322f, -0.6530343002f, -0.9928004525f, -0.119780055f,
             -0.0532665713f, 0.9985803285f, 0.9754253726f, -0.2203300762f, -0.7665018163f, 0.6422421394f, 0.991636706f, 0.1290606184f, -0.994696838f, 0.1028503788f, -0.5379205513f, -0.84299554f, 0.5022815471f, -0.8647041387f, 0.4559821461f, -0.8899889226f,
@@ -53,11 +53,11 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
     private final int maxValue;
     private final int[] idMap;
 
-    public VoronoiNoiseSampler(long seed, float frequency, int maxValue, int[] weights) {
+    public VoronoiNoiseSampler(long seed, float frequency, int[] values) {
         this.seed = seed;
         this.frequency = frequency;
-        this.maxValue = maxValue;
-        this.idMap = weights;
+        this.maxValue = values.length;
+        this.idMap = values;
     }
 
     private static int hash(long seed, int xPrimed, int yPrimed) {
@@ -78,7 +78,7 @@ public final class VoronoiNoiseSampler implements ModdedNoiseSampler {
         double distance1 = Double.MAX_VALUE;
         int closestHash = 0;
 
-        double cellularJitter = 0.43701595f;
+        float cellularJitter = 0.43701595f;
 
         int xPrimed = (xr - 1) * PRIME_X;
         int yPrimedBase = (yr - 1) * PRIME_Y;
